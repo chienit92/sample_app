@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by id: params[:id]
     if @user.nil?
-      flash[:notice] = "Don't Have Users, Please create"
+      flash[:danger] = "Don't Have Users, Please create"
       redirect_to signup_path
     end
   end
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
+      log_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
