@@ -18,7 +18,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=172800"
+      "Cache-Control": "public, max-age=172800"
     }
   else
     config.action_controller.perform_caching = false
@@ -28,11 +28,23 @@ Rails.application.configure do
 
   # Don"t care if the mailer can"t send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
-  host = "localhost:3000"
-  config.action_mailer.default_url_options = {host: host, protocol: "http"}
-
+  #config.action_mailer.delivery_method = :test
+  #host = "localhost:3000"
+  #config.action_mailer.default_url_options = {host: host, protocol: "https"}
+  config.action_mailer.default_url_options = {host: "localhost:3000"}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+     address: "smtp.gmail.com",
+     port: 587,
+     user_name: "nd.chien.it@gmail.com",
+     password: "01649505593",
+     authentication: :plain,
+     enable_starttls_auto: true
+    }
   config.action_mailer.perform_caching = false
+
+  # Print deprecation notices to the Rails logger.
+  config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
